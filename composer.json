@@ -1,0 +1,25 @@
+{
+    "name": "deegloo/mdd-sso",
+    "description": "MDD SSO plugin using JWT access token",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Patrik Mihaljevic",
+            "email": "patrik.mihaljevic@deegloo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "firebase/php-jwt": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {"Inc\\": "./inc"}
+    },
+    "require-dev": {
+        "brain/monkey": "2.*",
+        "phpunit/phpunit": "7.*"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
