@@ -6,7 +6,8 @@
 node_modules/
 
 # ignore composer dependency directories
-./vendor/
+composer.phar
+/vendor/
 
 # -------------------------
 # BEGIN Whitelisted Files
