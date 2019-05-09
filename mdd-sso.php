@@ -5,10 +5,10 @@
 /*
 Plugin Name: MDD SSO Login
 Plugin URI: https://deegloo.com/
-Description: MDD SSO plugin supporting JWT token login.
-Version: 1.0
-Author: Patrik Mihaljevic
-Author URI: https://github.com/pmihaljevic
+Description: MDD SSO Login plugin supporting JWT token login.
+Version: 1.0.0
+Author: Deegloo d.o.o.
+Author URI: https://deegloo.com/
 */
 
 

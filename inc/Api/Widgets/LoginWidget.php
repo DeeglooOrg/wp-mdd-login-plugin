@@ -39,6 +39,9 @@
     }
 
     public function widgetLoginPage() {
+      if (!LoginWidget::isConfigurationValid()) {
+        return;
+      }
       echo "<div style='clear:both; text-align:center;'> OR <br>";
       $this->printWidgetView();
       echo "</div>";
@@ -47,7 +50,6 @@
     public function widget($args, $instance) {
       $endpoint = esc_attr(get_option('authorize_endpoint'));
       $endpoint .= "?client_id=" . esc_attr(get_option('client_id')) . "&redirect_uri=". \Inc\Base\URLRegistry::getLoginUrl();
-      var_dump($instance);
       // echo $args['before_widget'];
       if (!empty($instance['title'])) {
           // echo $args['before_title'];
@@ -84,5 +86,18 @@
       }
       $title = esc_attr(get_option('widget_title'));
       echo "<a href='". $endpoint ."' class='mdd-login-widget' type='button'>".apply_filters('widget_title', $title)."</a>";
+      if (!LoginWidget::isConfigurationValid()) {
+        echo "<b>Invalid widget configuration!</b> <br/>Plugin will not be shown on login screen. Please check plugin configuration page!";
+      }
+    }
+
+    public static function isConfigurationValid() {
+      return  !empty(trim(esc_attr(get_option('client_id')))) && 
+              !empty(trim(esc_attr(get_option('client_secret')))) &&
+              !empty(trim(esc_attr(get_option('authorize_endpoint')))) &&
+              !empty(trim(esc_attr(get_option('widget_title')))) &&
+              !empty(trim(esc_attr(get_option('username_field')))) &&
+              !empty(trim(esc_attr(get_option('email_field')))) &&
+              !empty(trim(esc_attr(get_option('authorities_field'))));
     }
  }
