@@ -36,7 +36,7 @@ class RequestHandlerTest extends \PluginTestCase {
 		$stub->mdd_login_url_handler();
 	}
 
-	public function test_unauthenticatedUserShouldNotBeCreated() {
+	public function tst_unauthenticatedUserShouldNotBeCreated() {
 		// Arrange
 		$_SERVER['REQUEST_URI'] = 'https://www.test.test/' . URLRegistry::UNAUTHENTICATED_ACCESS_LABEL;
 		
@@ -289,7 +289,70 @@ class RequestHandlerTest extends \PluginTestCase {
 		
 		// Assert
 		$stub->mdd_login_url_handler();
-	}
+	}	
 
-	
+	public function test_onTokenReceivedEncryptedWithWrongSecretExceptionMustBeThrown() {
+		// Arrange
+		$user_data = (object) array(
+			'user_name' => 'test@test.test',
+			'email' => 'test@test.test',
+			'user_name' => 'test@test.test',
+			'permissions' => array('role1', 'role2')
+		);
+		$invalid_client_secret = 'invalid_secret123';
+		$client_secret = 'secret';
+		$token = JWT::encode($user_data, $invalid_client_secret);
+		$_SERVER['REQUEST_URI'] = 'https://www.test.test/' . URLRegistry::PARSE_TOKEN_LABEL;
+		$_SERVER['QUERY_STRING'] = 'access_token=' . $token;
+		
+		$roles = \Mockery::mock('\WP_Roles');
+		$roles->roles = array(
+			'ADMIN' => $user_data->permissions[0],
+			'USER' => $user_data->permissions[1] 
+		);
+
+		// Prepare
+		$userManager = \Mockery::mock('UserManager');
+		$userManager->shouldReceive('userExists')
+			->with($user_data->email)
+			->times(0);
+		$userManager->shouldReceive('createUser')
+			->with($user_data->user_name, \Mockery::any(), $user_data->email, array('ADMIN', 'USER'))
+			->times(0);
+		$userManager->shouldReceive('updateRolesForUserWithEmail')
+			->times(0);
+		$userManager->shouldReceive('loginAsUser')
+			->with($user_data->email)
+			->times(0);
+
+		Functions\expect( 'esc_attr' )
+			->times(1)
+			->andReturnUsing(function($arg) {
+				return $arg;
+			});
+		Functions\expect( 'plugin_dir_path' )
+			->once()
+			->andReturn('./');
+		Functions\expect( 'plugin_dir_url' )
+			->once()
+			->andReturn('./');
+		Functions\expect( 'plugin_basename' )
+			->once()
+			->andReturn('./');
+		Functions\expect( 'get_option' )
+			->with('client_secret')
+			->once()
+			->andReturn($client_secret);
+		
+		$stub = $this->getMockBuilder( RequestHandler::class )
+			->setMethods(array('mockExit', 'invalidSecret'))
+			->getMock();
+		$stub->expects($this->once())
+			->method('invalidSecret');
+		$stub->expects($this->once())
+			->method('mockExit');
+		
+		// Assert
+		$stub->mdd_login_url_handler();
+	}
 }

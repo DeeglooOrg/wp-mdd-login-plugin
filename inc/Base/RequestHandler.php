@@ -34,6 +34,10 @@ class RequestHandler extends BaseController
     require_once("$this->plugin_path/templates/token_processing.php");
   }
 
+  function invalidSecret() {
+    echo 'Invalid secret';
+  }
+
   function mockExit() {
     exit();
   }
@@ -55,13 +59,14 @@ class RequestHandler extends BaseController
         $this->loadTokenProcessing();
         return $this->mockExit();
       }
+      
       try {
         $decrypted_user = JWT::decode($query['access_token'], esc_attr(get_option('client_secret')), array('HS256'));
       } catch (SignatureInvalidException $e) {
-        echo 'Caught exception: ',  $e->getMessage(), "\n";
+        $this->invalidSecret();
         return $this->mockExit();
       }
-
+      
       $permissions_field = esc_attr(get_option('authorities_field'));
       $username_field = esc_attr(get_option('username_field'));
       $email_field = esc_attr(get_option('email_field'));
