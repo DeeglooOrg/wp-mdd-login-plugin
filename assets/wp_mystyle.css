@@ -21,3 +21,19 @@
   box-sizing: border-box;
   white-space: nowrap;
 }
+
+label {
+  display: none;
+}
+
+p.submit {
+  display: none;
+}
+
+.show {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}

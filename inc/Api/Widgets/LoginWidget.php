@@ -32,6 +32,7 @@
       parent::__construct($this->widget_ID, $this->widget_name, $this->widget_options, $this->control_options);
       add_action('widgets_init', array($this, 'widgetInit'));
       add_action('login_form', array($this, 'widgetLoginPage'));
+      add_action('login_footer', array($this, 'widgetLoginFooter'));
     }
 
     public function widgetInit() {
@@ -42,9 +43,17 @@
       if (!LoginWidget::isConfigurationValid()) {
         return;
       }
-      echo "<div style='clear:both; text-align:center;'> OR <br>";
+      echo "<div style='clear:both; text-align:center;'>";
       $this->printWidgetView();
+
       echo "</div>";
+    }
+
+    public function widgetLoginFooter() {
+      if (!LoginWidget::isConfigurationValid()) {
+        return;
+      }
+      echo "<p style='text-align:center;' id=\"backtoblog\"><a href='#' style='cursor:pointer' onclick='showAdminFields(this)'> Admin Login</a></p>";
     }
 
     public function widget($args, $instance) {

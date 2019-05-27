@@ -28,5 +28,6 @@ class Enqueue extends BaseController
   function login_enqueue() {
     // enqueue all the scripts
     wp_enqueue_style('mypluginstyle', $this->plugin_url . 'assets/wp_mystyle.css' );
+    wp_enqueue_script('mypluginscript', $this->plugin_url . 'assets/login_script.js' );
   }
 }
