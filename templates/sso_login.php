@@ -41,10 +41,10 @@ Processing authorization token...
     var hashed = CryptoJS.HmacSHA256(unsignedPart, '');
     var hashInBase64 = CryptoJS.enc.Base64.stringify(hashed);
     var response = parseJwt(token);
-
+    localStorage.setItem("mddToken", token);
+    localStorage.setItem("cdiSite", '<?php echo esc_attr(get_option('authorize_endpoint')); ?>');
     window.location = '<?php echo \Inc\Base\URLRegistry::getParseTokenUrl(); ?>' + '?access_token=' + token + '&state=' + getHashVariable(hash, 'state');
   }
-
   window.addEventListener("load", function() {
     parseHash(window.location.hash);
   });
