@@ -107,6 +107,7 @@
               !empty(trim(esc_attr(get_option('widget_title')))) &&
               !empty(trim(esc_attr(get_option('username_field')))) &&
               !empty(trim(esc_attr(get_option('email_field')))) &&
+              !empty(trim(esc_attr(get_option('must_have_role')))) &&
               !empty(trim(esc_attr(get_option('authorities_field'))));
     }
  }

@@ -70,10 +70,17 @@ class RequestHandler extends BaseController
       $permissions_field = esc_attr(get_option('authorities_field'));
       $username_field = esc_attr(get_option('username_field'));
       $email_field = esc_attr(get_option('email_field'));
+      $must_have_role = esc_attr(get_option('must_have_role'));
       $username = $decrypted_user->$username_field;
       $email_address = $decrypted_user->$email_field;
-      $password = 'jakotezakpassword123';
+      $password = serialize(bin2hex(random_bytes(16)));
       $roles = $this->getAllMappedRolesFromAuthorities($decrypted_user->$permissions_field);
+      
+      if (!in_array($must_have_role, $decrypted_user->$permissions_field)) {
+        wp_redirect( wp_login_url() );
+        return $this->mockExit();
+      }
+
       $userManager = $this->getUserManager();
       if ( !$userManager->userExists( $email_address ) ) {
         $userManager->createUser($username, $password, $email_address, $roles);

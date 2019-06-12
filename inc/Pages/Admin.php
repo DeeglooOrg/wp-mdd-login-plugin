@@ -91,6 +91,10 @@ class Admin extends BaseController
       array(
         'option_group' => 'mdd_attributes_group',
         'option_name' => 'authorities_field'
+      ),
+      array(
+        'option_group' => 'mdd_attributes_group',
+        'option_name' => 'must_have_role'
       )
     );
 
@@ -214,6 +218,17 @@ class Admin extends BaseController
         'section' => 'mdd_role_attributes_mappings',
         'args' => array(
           'label_for' => 'authorities_field',
+          'class' => 'mdd-sso-input'
+        )
+      ),
+      array(
+        'id' => 'must_have_role',
+        'title' => 'Required role',
+        'callback' => array($this->roles_callbacks, 'mddRolesCallback'),
+        'page' => 'mdd_role_attributes_mapping_section',
+        'section' => 'mdd_role_attributes_mappings',
+        'args' => array(
+          'label_for' => 'must_have_role',
           'class' => 'mdd-sso-input'
         )
       )
