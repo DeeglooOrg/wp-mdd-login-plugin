@@ -16,6 +16,10 @@ class URLRegistry
     return get_site_url() . '/' . self::SSO_LOGIN_LABEL;
   }
 
+  public static function getUnauthorizedAccessUrl() {
+    return get_site_url() . '/' . self::UNAUTHORIZED_ACCESS_LABEL;
+  }
+
   public static function getParseTokenUrl() {
     return get_site_url() . '/' . self::PARSE_TOKEN_LABEL;
   }

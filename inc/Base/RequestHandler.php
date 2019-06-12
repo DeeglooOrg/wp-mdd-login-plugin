@@ -77,7 +77,7 @@ class RequestHandler extends BaseController
       $roles = $this->getAllMappedRolesFromAuthorities($decrypted_user->$permissions_field);
       
       if (!in_array($must_have_role, $decrypted_user->$permissions_field)) {
-        wp_redirect( wp_login_url() );
+        wp_redirect( URLRegistry::getUnauthorizedAccessUrl() );
         return $this->mockExit();
       }
 
