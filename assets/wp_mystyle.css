@@ -22,7 +22,7 @@
   white-space: nowrap;
 }
 
-label {
+label, #nav, #backtoblog {
   display: none;
 }
 
@@ -36,6 +36,17 @@ p.submit {
 
 .hide {
   display: none !important;
+}
+
+#adminLogin {
+  margin: 15px auto;
+  text-align:center;
+}
+
+#adminLogin > a {
+  color: #444 !important;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .login form {

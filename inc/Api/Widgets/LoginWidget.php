@@ -53,7 +53,7 @@
       if (!LoginWidget::isConfigurationValid()) {
         return;
       }
-      echo "<p style='text-align:center;' id=\"backtoblog\"><a href='#' style='cursor:pointer' onclick='showAdminFields(this)'> Admin Login</a></p>";
+      echo "<p id=\"adminLogin\"><a href='#' onclick='showAdminFields(this)'> Admin Login</a></p>";
     }
 
     public function widget($args, $instance) {

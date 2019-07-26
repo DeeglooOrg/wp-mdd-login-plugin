@@ -43,7 +43,8 @@ Processing authorization token...
     var response = parseJwt(token);
     localStorage.setItem("mddToken", token);
     localStorage.setItem("cdiSite", '<?php echo esc_attr(get_option('authorize_endpoint')); ?>');
-    window.location = '<?php echo \Inc\Base\URLRegistry::getParseTokenUrl(); ?>' + '?access_token=' + token + '&state=' + getHashVariable(hash, 'state');
+    const provider_link = getHashVariable(hash, 'provider_link');
+    window.location = '<?php echo \Inc\Base\URLRegistry::getParseTokenUrl(); ?>' + '?access_token=' + token + (provider_link ? ('&provider_link=' + provider_link) : '') + '&state=' + getHashVariable(hash, 'state');
   }
   window.addEventListener("load", function() {
     parseHash(window.location.hash);
