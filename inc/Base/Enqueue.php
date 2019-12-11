@@ -22,12 +22,12 @@ class Enqueue extends BaseController
   
   function wp_enqueue() {
     // enqueue all the scripts
-    wp_enqueue_style('mypluginstyle', $this->plugin_url . 'assets/wp_mystyle.css' );
+    wp_enqueue_style('mypluginstyle', $this->plugin_url . 'assets/wp_mystyle.css?v=1.4' );
     wp_enqueue_script('mypluginscript', $this->plugin_url . 'assets/add_token.js' );
   }
   function login_enqueue() {
     // enqueue all the scripts
-    wp_enqueue_style('mypluginstyle', $this->plugin_url . 'assets/wp_mystyle.css' );
-    wp_enqueue_script('mypluginscript', $this->plugin_url . 'assets/login_script.js' );
+    wp_enqueue_style('mypluginstyle', $this->plugin_url . 'assets/wp_mystyle.css?v=1.4' );
+    wp_enqueue_script('mypluginscript', $this->plugin_url . 'assets/login_script.js?v=1.4' );
   }
 }

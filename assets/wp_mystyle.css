@@ -22,16 +22,17 @@
   white-space: nowrap;
 }
 
-label, #nav, #backtoblog {
-  display: none;
+label, #nav, #backtoblog, 
+.input, .user-pass-wrap, .forgetmenot {
+  display: none !important;
 }
 
 p.submit {
-  display: none;
+  display: none !important;
 }
 
 .show {
-  display: block !important;
+  display: inherit !important;
 }
 
 .hide {
