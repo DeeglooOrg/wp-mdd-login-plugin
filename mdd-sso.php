@@ -11,6 +11,7 @@ Author: Deegloo d.o.o.
 Author URI: https://deegloo.com/
 */
 
+error_reporting(0);
 
 // If this file is called as script, abort!
 defined( 'ABSPATH') or die('Hey, what are you doing here? This is WP plugin, not script.');
